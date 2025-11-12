@@ -747,10 +747,14 @@ function trialRoutineBegin(snapshot) {
         stimLoop.finished = true;
         continueRoutine = false;
     } else {
-        import * as random from 'random';
-        import {importConditions} from 'psychopy/data';
-        if ((! _pj.in_es6("all_conditions", globals()))) {
-            all_conditions = importConditions("all_conditions.xlsx");
+        trials = new TrialHandler({
+    psychoJS: psychoJS,
+    nReps: 1,
+    method: TrialHandler.Method.SEQUENTIAL,
+    trialList: TrialHandler.importConditions(psychoJS.serverManager, 'all_conditions.xlsx'),
+    name: 'trials'
+        });
+        psychoJS.experiment.addLoop(trials);
         }
         selected_groups = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         idx = currentLoop.thisN;
