@@ -158,9 +158,14 @@ async function experimentInit() {
   // Initialize components for Routine "trial"
   trialClock = new util.Clock();
   // Run 'Begin Experiment' code from code
-  import * as random from 'random';
-  import {importConditions} from 'psychopy/data';
-  all_conditions = importConditions("all_conditions.xlsx");
+  trials = new TrialHandler({
+  psychoJS: psychoJS,
+  nReps: 1,
+  method: TrialHandler.Method.SEQUENTIAL,
+  trialList: 'all_conditions.xlsx',
+  name: 'trials'
+});
+psychoJS.experiment.addLoop(trials); 
   selected_groups = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   
   postImg = new visual.ImageStim({
