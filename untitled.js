@@ -78,7 +78,7 @@ psychoJS.start({
   expInfo: expInfo,
   resources: [
     // resources:
-    {'name': 'default.png', 'path': 'https://pavlovia.org/assets/default/default.png'},
+    {'name': 'default.png', 'path': 'default.png'},
   ]
 });
 
@@ -176,15 +176,7 @@ async function experimentInit() {
   // PsychoJS автоматически импортирует Excel при загрузке, 
   // поэтому импорт вручную не требуется, но можно явно прочитать файл:
   
-  let all_conditions = [];
   let selected_groups = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  
-  // PsychoJS имеет встроенный метод для загрузки условий, 
-  // но чтобы это сработало при инициализации, нужно сделать это асинхронно:
-  psychoJS.serverManager.getResource('resources/all_conditions.csv');
-  
-  // После загрузки, можно прочитать данные в RoutineBegin, например:
-  all_conditions = importConditions('resources/all_conditions.csv');
   
   // Если ты не используешь `LoopHandler` Builder’а, 
   // можно вручную отфильтровать или выбрать группы:
