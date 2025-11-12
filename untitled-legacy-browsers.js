@@ -173,10 +173,10 @@ async function experimentInit() {
   
   // PsychoJS имеет встроенный метод для загрузки условий, 
   // но чтобы это сработало при инициализации, нужно сделать это асинхронно:
-  psychoJS.serverManager.getResource('all_conditions.csv');
+  psychoJS.serverManager.getResource('resources/all_conditions.csv');
   
   // После загрузки, можно прочитать данные в RoutineBegin, например:
-  all_conditions = importConditions('all_conditions.csv');
+  all_conditions = importConditions('resources/all_conditions.csv');
   
   // Если ты не используешь `LoopHandler` Builder’а, 
   // можно вручную отфильтровать или выбрать группы:
@@ -705,7 +705,7 @@ function stimLoopLoopBegin(stimLoopLoopScheduler, snapshot) {
       psychoJS: psychoJS,
       nReps: 1, method: TrialHandler.Method.RANDOM,
       extraInfo: expInfo, originPath: undefined,
-      trialList: 'all_conditions.xlsx',
+      trialList: 'resources/all_conditions.csv',
       seed: undefined, name: 'stimLoop'
     });
     psychoJS.experiment.addLoop(stimLoop); // add the loop to the experiment
@@ -796,7 +796,7 @@ function trialRoutineBegin(snapshot) {
     } else {
         // === Импорт условий (эквивалент importConditions) ===
         if (typeof all_conditions === 'undefined') {
-            all_conditions = importConditions('all_conditions.xlsx');
+            all_conditions = importConditions('all_conditions.');
         }
     
         // === Список групп ===
