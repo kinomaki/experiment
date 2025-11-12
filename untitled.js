@@ -113,7 +113,9 @@ async function updateInfo() {
 
   return Scheduler.Event.NEXT;
 }
-
+// Begin Experiment
+var selected_groups = [1,2,3,4,5,6,7,8,9]; // глобальная, доступна во всех циклах
+var all_conditions = importConditions('resources/all_conditions.csv'); // тоже глобальная
 
 var instructionClock;
 var instr;
