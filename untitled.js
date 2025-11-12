@@ -171,16 +171,19 @@ async function experimentInit() {
   
   // Initialize components for Routine "trial"
   trialClock = new util.Clock();
-  // Run 'Begin Experiment' code from code
-  // === Импорт условий (аналог importConditions) ===
-  // PsychoJS автоматически импортирует Excel при загрузке, 
-  // поэтому импорт вручную не требуется, но можно явно прочитать файл:
-  
-  let selected_groups = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  all_conditions = importConditions('resources/all_conditions.csv');
+    selected_groups = [1,2,3,4,5,6,7,8,9];
   
   // Если ты не используешь `LoopHandler` Builder’а, 
   // можно вручную отфильтровать или выбрать группы:
   let filtered_conditions = all_conditions.filter(row => selected_groups.includes(row.group));
+    if (typeof all_conditions === 'undefined') {
+    console.log("Error: all_conditions is undefined!");
+} else {
+    group_rows = all_conditions.filter(r => r.group == group_num);
+    chosen_row = group_rows[Math.floor(Math.random() * group_rows.length)];
+    // остальные действия
+}
   postImg = new visual.ImageStim({
     win : psychoJS.window,
     name : 'postImg', units : undefined, 
@@ -194,6 +197,7 @@ async function experimentInit() {
     flipHoriz : false, flipVert : false,
     texRes : 128.0, interpolate : true, depth : -1.0 
   });
+    
   // Initialize components for Routine "survey0"
   survey0Clock = new util.Clock();
   q0 = new visual.TextStim({
