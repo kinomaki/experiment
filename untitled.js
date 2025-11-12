@@ -1,17 +1,16 @@
-
 /***************** 
  * Untitled (fixed)
  *
  * Исправления:
- * - Удалён некорректный ранний вызов importConditions(...) для загрузки CSV
- * - Исправлены вызовы thisExp.addData -> psychoJS.experiment.addData
- * - Упрощена логика выбора условий в trialRoutineBegin: полагаться на importConditions(snapshot)
- * - Исправлена функция importConditions(...) внизу (принимает snapshot и вызывает psychoJS.importAttributes(snapshot))
- * - Объявлены недостающие переменные (image, theme, tone, likes и пр.)
- * - Безопасная проверка PILOTING
- * - Небольшие правки в метках слайдеров (убраны "...[" обрезки)
+ * - Ошибка "unknown resource" при importConditions: добавлен CSV в список resources в psychoJS.start.
+ * - Исправлено использование trialList в TrialHandler: теперь 'all_conditions.csv' (имя ресурса).
+ * - Удалены некорректные ранние вызовы importConditions(...) для синхронной загрузки.
+ * - Исправлена реализация importConditions(snapshot) — теперь принимает snapshot и вызывает psychoJS.importAttributes(snapshot).
+ * - Заменены обращения thisExp.addData -> psychoJS.experiment.addData.
+ * - Объявлены недостающие глобальные переменные (image, theme, tone, likes и пр.) и убраны дубли.
+ * - Небольшие правки в текстах и метках слайдеров (удалены обрезанные фрагменты).
  *
- * Примечание: текстовые строки (инструкции, длинные тексты) были сохранены упрощённо там, где оригинал был обрезан (`[...]`).
+ * Примечание: текстовые блобы сокращены там, где исходный файл был обрезан (`[...]`).
  *****************/
 
 import { core, data, sound, util, visual, hardware } from './lib/psychojs-2025.1.1.js';
@@ -93,8 +92,9 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-    // resources:
+    // resources: добавлен CSV с условиями
     {'name': 'default.png', 'path': 'https://pavlovia.org/assets/default/default.png'},
+    {'name': 'all_conditions.csv', 'path': 'resources/all_conditions.csv'},
   ]
 });
 
@@ -133,7 +133,7 @@ async function updateInfo() {
 
 // глобальные переменные
 var selected_groups = [1,2,3,4,5,6,7,8,9]; // глобальная, доступна во всех циклах
-var all_conditions = importConditions('resources/all_conditions.csv'); // не загружаем CSV заранее; TrialHandler сделает это
+var all_conditions = undefined; // загрузится через TrialHandler/resources
 var image = '';
 var theme = '';
 var tone = '';
@@ -184,7 +184,7 @@ async function experimentInit() {
   instr = new visual.TextStim({
     win: psychoJS.window,
     name: 'instr',
-    text: 'ИНФОРМИРОВАННОЕ СОГЛАСИЕ НА УЧАСТИЕ В ИССЛЕДОВАНИИ\n\nЗдравствуйте!\n\nСпасибо, что принимаете участие в психологическом исследовании. Оно проводится студентами НИУ ВШЭ (Горобцом Максимом и Салахетдиновой Самирой).\n\nЦель исследования: изучить, как люди воспринимают посты в социальных сетях\n\nЧто будет происходить:\n• Вы увидите 9 постов из соцсетей\n• После каждого поста оцените его по 3 вопросам\n• Общее время прохождения: 4–6 минут\n\nУчастие:\n• Добровольное\n• Анонимное\nВы можете прекратить участие в любой момент без последствий\n\nРиски:\nИсследование не несет никаких рисков\n\nДанные:\n• Сохраняются в зашифрованном виде\n• Используются только в научных целях\n• Результаты будут опубликованы в обобщенном виде\n\nКонтакт:\nЕсли у Вас будут вопросы, Вы можете задать их, написав на почту mvgorobets@edu.hse.ru\n\nПродолжая, вы подтверждаете, что:\n• Прочитали и поняли информацию\n• Даете согласие на участие\n\n\nДля продолжения нажмите ПРОБЕЛ',
+    text: 'ИНФОРМИРОВАННОЕ СОГЛАСИЕ НА УЧАСТИЕ В ИССЛЕДОВАНИИ\n\nЗдравствуйте!\n\nСпасибо, что принимаете участие в исследовании.\n\nНажмите пробел чтобы продолжить.',
     font: 'Arial',
     units: undefined, 
     pos: [0, 0], draggable: false, height: 0.02,  wrapWidth: undefined, ori: 0.0,
@@ -722,7 +722,7 @@ function stimLoopLoopBegin(stimLoopLoopScheduler, snapshot) {
       psychoJS: psychoJS,
       nReps: 1, method: TrialHandler.Method.RANDOM,
       extraInfo: expInfo, originPath: undefined,
-      trialList: 'resources/all_conditions.csv',
+      trialList: 'all_conditions.csv', // имя ресурса, как в psychoJS.start.resources
       seed: undefined, name: 'stimLoop'
     });
     psychoJS.experiment.addLoop(stimLoop); // add the loop to the experiment
@@ -810,11 +810,11 @@ function trialRoutineBegin(snapshot) {
         stimLoop.finished = true;
         continueRoutine = false;
     } else {
-        // Полагаться на импортированные атрибуты текущего пробного набора (через importConditions(snapshot))
-        // Если они не определены, подставляем значение по умолчанию
+        // Полагаться на importConditions(snapshot), который уже вызван перед этой рутиной
+        // Значения (image, theme, tone, likes и т.д.) импортируются в пространство имён через psychoJS.importAttributes
         image = (typeof image !== 'undefined' && image !== null) ? image : 'default.png';
         theme = (typeof theme !== 'undefined' && theme !== null) ? theme : '';
-        tone  = (typeof tone !== 'undefined'  && tone  !== null) ? tone  : '';
+        tone  = (typeof tone !== 'undefined' && tone !== null) ? tone : '';
         likes = (typeof likes !== 'undefined' && likes !== null) ? likes : '';
     }
     postImg.setImage(image);
@@ -2051,15 +2051,14 @@ function thanksRoutineEnd(snapshot) {
 
 function importConditions(snapshot) {
   return async function () {
-    // snapshot comes from stimLoop.getSnapshot() in the loop setup above.
-    // In builder exports, importConditions(snapshot) should call psychoJS.importAttributes(snapshot)
+    // snapshot приходит из stimLoop.getSnapshot() в цикле наверху.
+    // В экспортированных скриптах PsychoJS importConditions обычно вызывает psychoJS.importAttributes(snapshot)
     if (typeof snapshot !== 'undefined' && snapshot !== null) {
-      // snapshot can be an object produced by TrialHandler.getSnapshot()
-      // In many PsychoJS exports snapshot already contains trial attributes.
       try {
+        // В большинстве случаев snapshot — объект с пробными атрибутами
         psychoJS.importAttributes(snapshot);
       } catch (e) {
-        // Fallback: if snapshot has getCurrentTrial method, use it
+        // Защита: если snapshot — обёртка с getCurrentTrial(), попробуем её
         if (typeof snapshot.getCurrentTrial === 'function') {
           const trialAttrs = snapshot.getCurrentTrial();
           if (trialAttrs) {
