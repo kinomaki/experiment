@@ -185,7 +185,6 @@ async function experimentInit() {
   postImg = new visual.ImageStim({
     win : psychoJS.window,
     name : 'postImg', units : undefined, 
-    image : 'default.png', mask : undefined,
     anchor : 'center',
     ori : 0.0, 
     pos : [0, 0], 
@@ -796,7 +795,7 @@ function trialRoutineBegin(snapshot) {
     } else {
         // Полагаться на importConditions(snapshot), который уже вызван перед этой рутиной
         // Значения (image, theme, tone, likes и т.д.) импортируются в пространство имён через psychoJS.importAttributes
-        image = (typeof image !== 'undefined' && image !== null) ? image : 'default.png';
+        image = (typeof image !== 'undefined' && image !== null) ? image : '';
         theme = (typeof theme !== 'undefined' && theme !== null) ? theme : '';
         tone  = (typeof tone !== 'undefined' && tone !== null) ? tone : '';
         likes = (typeof likes !== 'undefined' && likes !== null) ? likes : '';
