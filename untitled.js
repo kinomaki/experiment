@@ -77,7 +77,6 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-    {'name': 'default.png', 'path': 'https://pavlovia.org/assets/default/default.png'},
     {'name': 'all_conditions.csv', 'path': 'resources/all_conditions.csv'},
     {'name': 'rel_neu_min.png', 'path': 'stimuli/rel_neu_min.png'},
     {'name': 'rel_poz_min.png', 'path': 'stimuli/rel_poz_min.png'},
