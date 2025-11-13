@@ -1,18 +1,3 @@
-/***************** 
- * Untitled (fixed)
- *
- * Исправления:
- * - Ошибка "unknown resource" при importConditions: добавлен CSV в список resources в psychoJS.start.
- * - Исправлено использование trialList в TrialHandler: теперь 'all_conditions.csv' (имя ресурса).
- * - Удалены некорректные ранние вызовы importConditions(...) для синхронной загрузки.
- * - Исправлена реализация importConditions(snapshot) — теперь принимает snapshot и вызывает psychoJS.importAttributes(snapshot).
- * - Заменены обращения thisExp.addData -> psychoJS.experiment.addData.
- * - Объявлены недостающие глобальные переменные (image, theme, tone, likes и пр.) и убраны дубли.
- * - Небольшие правки в текстах и метках слайдеров (удалены обрезанные фрагменты).
- *
- * Примечание: текстовые блобы сокращены там, где исходный файл был обрезан (`[...]`).
- *****************/
-
 import { core, data, sound, util, visual, hardware } from './lib/psychojs-2025.1.1.js';
 const { PsychoJS } = core;
 const { TrialHandler, MultiStairHandler } = data;
@@ -93,7 +78,6 @@ psychoJS.start({
   expInfo: expInfo,
   ources: [
     // ources: добавлен CSV с условиями
-    {'name': 'default.png', 'path': 'https://pavlovia.org/assets/default/default.png'},
     {'name': 'all_conditions.csv', 'path': 'resources/all_conditions.csv'},
   ]
 });
