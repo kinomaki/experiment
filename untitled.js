@@ -58,7 +58,7 @@ const flowScheduler = new Scheduler(psychoJS);
 const dialogCancelScheduler = new Scheduler(psychoJS);
 psychoJS.scheduleCondition(function() { return (psychoJS.gui.dialogComponent.button === 'OK'); },flowScheduler, dialogCancelScheduler);
 
-// flowScheduler gets run if the participants presses OK
+// flowScheduler gets run if the participants pses OK
 flowScheduler.add(updateInfo); // add timeStamp
 flowScheduler.add(experimentInit);
 flowScheduler.add(instructionRoutineBegin());
@@ -85,14 +85,14 @@ flowScheduler.add(thanksRoutineEachFrame());
 flowScheduler.add(thanksRoutineEnd());
 flowScheduler.add(quitPsychoJS, 'Thank you for your patience.', true);
 
-// quit if user presses Cancel in dialog box:
+// quit if user pses Cancel in dialog box:
 dialogCancelScheduler.add(quitPsychoJS, 'Thank you for your patience.', false);
 
 psychoJS.start({
   expName: expName,
   expInfo: expInfo,
-  resources: [
-    // resources: добавлен CSV с условиями
+  ources: [
+    // ources: добавлен CSV с условиями
     {'name': 'default.png', 'path': 'https://pavlovia.org/assets/default/default.png'},
     {'name': 'all_conditions.csv', 'path': 'resources/all_conditions.csv'},
   ]
@@ -133,7 +133,7 @@ async function updateInfo() {
 
 // глобальные переменные
 var selected_groups = [1,2,3,4,5,6,7,8,9]; // глобальная, доступна во всех циклах
-var all_conditions = undefined; // загрузится через TrialHandler/resources
+var all_conditions = 'resources/all_conditions.csv'; // загрузится через TrialHandler/resources
 var image = '';
 var theme = '';
 var tone = '';
