@@ -76,9 +76,36 @@ dialogCancelScheduler.add(quitPsychoJS, 'Thank you for your patience.', false);
 psychoJS.start({
   expName: expName,
   expInfo: expInfo,
-  ources: [
-    // ources: добавлен CSV с условиями
+  resources: [
+    {'name': 'default.png', 'path': 'https://pavlovia.org/assets/default/default.png'},
     {'name': 'all_conditions.csv', 'path': 'resources/all_conditions.csv'},
+    {'name': 'rel_neu_min.png', 'path': 'stimuli/rel_neu_min.png'},
+    {'name': 'rel_poz_min.png', 'path': 'stimuli/rel_poz_min.png'},
+    {'name': 'rel_neg_min.png', 'path': 'stimuli/rel_neg_min.png'},
+    {'name': 'ii_neu_min.png', 'path': 'stimuli/ii_neu_min.png'},
+    {'name': 'ii_poz_min.png', 'path': 'stimuli/ii_poz_min.png'},
+    {'name': 'ii_neg_min.png', 'path': 'stimuli/ii_neg_min.png'},
+    {'name': 'fin_neu_min.png', 'path': 'stimuli/fin_neu_min.png'},
+    {'name': 'fin_poz_min.png', 'path': 'stimuli/fin_poz_min.png'},
+    {'name': 'fin_neg_min.png', 'path': 'stimuli/fin_neg_min.png'},
+    {'name': 'rel_neu_mid.png', 'path': 'stimuli/rel_neu_mid.png'},
+    {'name': 'rel_poz_mid.png', 'path': 'stimuli/rel_poz_mid.png'},
+    {'name': 'rel_neg_mid.png', 'path': 'stimuli/rel_neg_mid.png'},
+    {'name': 'ii_neu_mid.png', 'path': 'stimuli/ii_neu_mid.png'},
+    {'name': 'ii_poz_mid.png', 'path': 'stimuli/ii_poz_mid.png'},
+    {'name': 'ii_neg_mid.png', 'path': 'stimuli/ii_neg_mid.png'},
+    {'name': 'fin_neu_mid.png', 'path': 'stimuli/fin_neu_mid.png'},
+    {'name': 'fin_poz_mid.png', 'path': 'stimuli/fin_poz_mid.png'},
+    {'name': 'fin_neg_mid.png', 'path': 'stimuli/fin_neg_mid.png'},
+    {'name': 'rel_neu_max.png', 'path': 'stimuli/rel_neu_max.png'},
+    {'name': 'rel_poz_max.png', 'path': 'stimuli/rel_poz_max.png'},
+    {'name': 'rel_neg_max.png', 'path': 'stimuli/rel_neg_max.png'},
+    {'name': 'ii_neu_max.png', 'path': 'stimuli/ii_neu_max.png'},
+    {'name': 'ii_poz_max.png', 'path': 'stimuli/ii_poz_max.png'},
+    {'name': 'ii_neg_max.png', 'path': 'stimuli/ii_neg_max.png'},
+    {'name': 'fin_neu_max.png', 'path': 'stimuli/fin_neu_max.png'},
+    {'name': 'fin_poz_max.png', 'path': 'stimuli/fin_poz_max.png'},
+    {'name': 'fin_neg_max.png', 'path': 'stimuli/fin_neg_max.png'},      
   ]
 });
 
